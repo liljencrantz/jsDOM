@@ -28,24 +28,26 @@ var jsDOM = {
        The number of times to run each test.
      */
   TRIAL_LAPS: 1,
-  VERSION: 1,
+    /**
+       The version of the benchmark. Whenever tests are added or updated, this version should be bumped.
+     */
+  VERSION: "1-pre (unreleased)",
 
   /**
      This namespace (jsDOM.tests) is a hash that contains all the
      individual tests.
      
-     Each test is a hash consists of three parts, a description field that
-     explains what the test does, a setup function that creates any
-     DOM nodes the test might need but should not be part of the test
-     time, and finally a main function which is what is measured.
+     Each test is a hash that consists of three parts, a description
+     field that explains what the test does, a setup function that
+     performs any DOM manipuations that might be needed prior to
+     running the test that should not be part of the test time, and
+     finally a main function which is what is measured.
      
      For a description of what each test does,
      read the description field of each test.
      
      More DOM test ideas for the future: 
      
-     - Node removal.
-     - Node copying.
      - Inserting and then removing very long text nodes.
      - Animations.
    */
@@ -54,6 +56,9 @@ var jsDOM = {
 
     tableCreation:
     {
+	/*
+	  Nothing to set up
+	 */
       setup:function(){},
       main:function()
       {
@@ -67,7 +72,56 @@ var jsDOM = {
 	      table.append(row);
 	  }
       },
-      description:"This test measures the time it takes to create a large but simple HTML table containing only unformated text."
+      description:"This test measures the time it takes to create a large but simple HTML table containing only unformated text by creating individual cells one at a time."
+    },
+
+    tableCloning:
+    {
+	/*
+	  Nothing to set up
+	 */
+      setup:function(){
+	  var table = $("<table id='myTable'></table>");
+	  $("body").append(table);
+	  var row = $("<tr></tr>");
+	  for(var j=0; j<5; j++){
+	      row.append($("<td></td>").text("Test"));
+	  }
+	  table.append(row);
+	  jsDOM.tests.tableCloning.original = row;
+	  jsDOM.tests.tableCloning.table = table;
+      },
+      main:function()
+      {
+	  for(var i=0; i<50; i++){
+	      jsDOM.tests.tableCloning.table.append(jsDOM.tests.tableCloning.original.clone());
+	  }
+      },
+      description:"This test measures the time it takes to create a large but simple HTML table containing only unformated text by cloning preexisting table rows."
+    },
+
+    tableRemoval:
+    {
+      setup:function(){
+	  var table = $("<table id='myTable'></table>");
+	  for(var i=0; i<50; i++){
+	      var row = $("<tr></tr>");
+	      for(var j=0; j<5; j++){
+		  row.append($("<td></td>").text("Test").attr("id","el"+i+"_"+j));
+	      }
+	      table.append(row);
+	  }
+	  $("body").append(table);
+	},
+      main:
+      function(){
+	  for(var i=0; i<50; i++){
+	      for(var j=0; j<5; j++){
+		  $("#el"+i+"_"+j).remove();
+	      }
+	  }
+      },
+      description: "This test measures the time it takes to remove a table, one table cell at a time."
     },
 
     simpleStyling:
