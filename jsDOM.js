@@ -140,12 +140,12 @@ var jsDOM = {
 	},
       main:
       function(){
-	  for(var i=0; i<50; i++){
+	  for(var i=0; i<20; i++){
 	      $("table tr.bar td:last").length;
 	      $("table tr:odd .foo_4").length;
 	  }
       },
-      description: "This test measures the time it takes to remove a table, one table cell at a time."
+      description: "This test measures the time it takes to search through the nodes of a medium sized page using complex search criteria, such as \"table tr.bar td:last\"."
     },
 
     simpleStyling:
