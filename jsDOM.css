@@ -1,0 +1,32 @@
+
+
+.style1
+{
+    color: red;
+}
+
+.style2
+{
+    color: green;
+}
+
+.style3
+{
+    color: blue;
+}
+
+.style1.style2
+{
+    padding: 10px;
+    margin-left: 5pt;
+}
+
+.style1.style3
+{
+    font-family: serif;
+}
+
+body table .style3
+{
+    margin-right: 5pt;
+}

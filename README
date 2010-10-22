@@ -1,0 +1,6 @@
+
+jsDOM is a benchmark suite for measuring performance of JavaScript DOM
+manipulation. That is, it does not measure the speed of the JavaScript
+interpreter itself, but rather the speed of the web browsers interface
+with JavaScript. In many modern web applications, this is the largest
+performance bottleneck.
