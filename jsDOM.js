@@ -27,7 +27,7 @@ var jsDOM = {
     /**
        The number of times to run each test.
      */
-  TRIAL_LAPS: 20,
+  TRIAL_LAPS: 50,
     /**
        The version of the benchmark. Whenever tests are added or updated, this version should be bumped.
      */
@@ -291,6 +291,50 @@ var jsDOM = {
   function(){
       $("body").empty();
   },
+
+  showComparison: function(score){
+      var data = ([
+		      ["Microsoft Internet Explorer 8 (8.0.6001.18702)", 1.61],
+		      ["Mozilla Firefox 3.6 (3.6.11)", 2.46],
+		      ["Opera 10 (10.63 build 3516)", 7.64],
+		      ["Apple Safari 5 (5.0.2 (7533.18.5))", 10.29],
+		      ["Google Chrome 7 (7.0.514.41)", 11.53]
+		      ]);
+
+      //      data.push(["Your browser",score]);
+
+      var gdata=[];
+      var tdata=[];
+      $.each(data, function(key,value){
+	      gdata.push([key, value[1]]);
+	      tdata.push([key+0.5, value[0]]);
+	  });
+      tdata.push([data.length+0.5, "You"]);
+
+      $("body").append($("<p>").text("For comparison, the graph below shows how your system compares with some common browsers running Microsoft Windows Server 2003 SP2 on a Intel Core 2 Duo E4600 2.4 GHz machine."));
+
+      $("body").append($("<div id='placeholder' style='width:800px;height:300px'></div>"));
+      $.plot(
+	  $('#placeholder'),
+	  [
+	      {
+		data: gdata,
+		      bars: {show:true},
+		      color: "#f00"		      
+		      },
+	      
+	      {
+		data: [[data.length,score]],
+		      bars: {show:true},
+		      color: "#0f0"		      
+	      }
+	      ],{
+	    xaxis: {ticks: tdata},
+		  series:{
+		bars:{barWidth:0.8}
+		      }
+	  }); 
+  },
     
   /**
      Show the test results on screen.
@@ -298,27 +342,37 @@ var jsDOM = {
   showResults:
   function(results){
 
+      var score = 0;
+      $.each(
+	  results,
+	  function(testName, test){
+	      score += test.time
+		  });
+      score = 1/score;
+
       numFormat = function(number, digits){
 	  digits = digits || 2;
 	  var factor = Math.pow(10, digits);
 	  var num = Math.round(number*factor)/factor;
 	  return "" + num;
       }
-      $("body").append($("<span>").text("The jsDOM benchmark suite version "+jsDOM.VERSION+" has been run on your computer. This test suite focuses on the speed of so called DOM manipulation in JavaScript. DOM manipulation is the main way that JavaScripts in web pages push updates onto the screen. "));
+      $("body").append($("<p>").text("The jsDOM benchmark suite version "+jsDOM.VERSION+" has been run on your computer. This test suite focuses on the speed of so called DOM manipulation in JavaScript. DOM manipulation is the main way that JavaScripts in web pages push updates onto the screen. "));
+
+      $("body").append($("<p>").html("Your jsDOM "+jsDOM.VERSION+" score is <b>" + numFormat(score) + "</b> (Higher is better). A score of ten or above indicates that your system is highly suitable for rendering javascript generated web pages. Please remember that browser score depends both on your web browser, your computer and your operating system."));
+
+      jsDOM.showComparison(score);
+
       $("body").append($("<ul id='results'></ul>"));
       var list = $("#results");
-      var score = 0;
       $.each(
 	  results,
 	  function(testName, test){
 	      var text = "The " + testName + " test took " + numFormat(test.time,3) + " seconds. ";
 	      text += test.description;
 	      list.append($("<li>").text(text));
-	      score += test.time
 		  });
-      score = 1/score;
-      $("body").append($("<div></div>").text("Your jsDOM "+jsDOM.VERSION+" score is " + numFormat(score) + " (Higher is better). A score of ten or above indicates that your system is highly suitable for rendering javascript generated web pages. Please remember that browser score depends both on your web browser, your computer and your operating system."));
-      $("body").append($("<div></div>").html("For more information about how the benchmark score is calculated and why, see the <a href='README'>README</a> file. For a more detailed look at what the benchmark does, you're welcome to check out the <a href='jsDOM.js'>source code</a>. The jsDOM source code is free software released under <a href='LICENSE'>GPL version 2</a>; feel free to suggest or implement improvements."));
+
+      $("body").append($("<p>").html("For more information about how the benchmark score is calculated and why, see the <a href='README'>README</a> file. For a more detailed look at what the benchmark does, you're welcome to check out the <a href='jsDOM.js'>source code</a>. The jsDOM source code is free software released under <a href='LICENSE'>GPL version 2</a>; feel free to suggest or implement improvements."));
   },
     
   /**
