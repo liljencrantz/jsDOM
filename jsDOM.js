@@ -318,15 +318,13 @@ var jsDOM = {
 
   showComparison: function(score){
       var data = ([
-		      ["Microsoft Internet Explorer 8 (8.0.6001.18702)", 0.76],
-		      ["Mozilla Firefox 3.6 (3.6.11)", 1.94],
-		      ["Opera 10 (10.63 build 3516)", 3.85],
-		      ["Apple Safari 5 (5.0.2 (7533.18.5))", 6.85],
-		      ["Google Chrome 7 (7.0.514.41)", 6.89]
+		      ["Microsoft Internet Explorer 8 (8.0.6001.18702)", 1.14],
+		      ["Mozilla Firefox 3.6 (3.6.11)", 2.19],
+		      ["Opera 10 (10.63 build 3516)", 4.59],
+		      ["Apple Safari 5 (5.0.2 (7533.18.5))", 8.33],
+		      ["Google Chrome 7 (7.0.514.41)", 8.92]
 		      ]);
-
-      //      data.push(["Your browser",score]);
-
+      
       var gdata=[];
       var tdata=[];
       $.each(data, function(key,value){
