@@ -27,7 +27,7 @@ var jsDOM = {
     /**
        The number of times to run each test.
      */
-  TRIAL_LAPS: 1,
+  TRIAL_LAPS: 20,
     /**
        The version of the benchmark. Whenever tests are added or updated, this version should be bumped.
      */
@@ -317,7 +317,8 @@ var jsDOM = {
 	      score += test.time
 		  });
       score = 1/score;
-      $("body").append($("<span>").text("Your jsDOM "+jsDOM.VERSION+" score is " + numFormat(score) + " (Higher is better). A score of ten or above indicates that your system is highly suitable for rendering javascript generated web pages. Please remember that browser score depends both on your web browser, your computer and your operating system."));
+      $("body").append($("<div></div>").text("Your jsDOM "+jsDOM.VERSION+" score is " + numFormat(score) + " (Higher is better). A score of ten or above indicates that your system is highly suitable for rendering javascript generated web pages. Please remember that browser score depends both on your web browser, your computer and your operating system."));
+      $("body").append($("<div></div>").html("For more information about how the benchmark score is calculated and why, see the <a href='README'>README</a> file. For a more detailed look at what the benchmark does, you're welcome to check out the <a href='jsDOM.js'>source code</a>. The jsDOM source code is free software released under <a href='LICENSE'>GPL version 2</a>; feel free to suggest or implement improvements."));
   },
     
   /**

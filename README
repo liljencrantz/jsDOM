@@ -4,3 +4,21 @@ manipulation. That is, it does not measure the speed of the JavaScript
 interpreter itself, but rather the speed of the web browsers interface
 with JavaScript. In many modern web applications, this is the largest
 performance bottleneck.
+
+jsDOM relies heavily on the jQuery library for DOM manipulation. The
+reasoning behind this choice is that jQuery is a popular real world
+choice, and as such, the benchmark should better reflect real world
+performance. 
+
+The jsDOM test performs a set of tasks that are all reasonable to
+expect an AJAX heavy site to perform during initial loading. These
+tasks include creating DOM nodes using one of several techniques,
+creating a form, and modifying the styling of DOM elements in several
+ways. The average time taken to complete all these tasks once is
+inverted to produce the final benchmark score. In other words, a score
+of ten means that the DOM manipulation portion of page loading can be
+expected to take roughly one tenth of a second. This is the threshold
+chosen for what is percieved to be acceptable performance in this
+benchmark. 
+
+
