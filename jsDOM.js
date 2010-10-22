@@ -328,12 +328,12 @@ var jsDOM = {
       var gdata=[];
       var tdata=[];
       $.each(data, function(key,value){
-	      gdata.push([key, value[1]]);
+	      gdata.push([key+0.1, value[1]]);
 	      tdata.push([key+0.5, value[0]]);
 	  });
       tdata.push([data.length+0.5, "You"]);
 
-      $("body").append($("<p>").text("For comparison, the graph below shows how your system compares with some common browsers running Microsoft Windows Server 2003 SP2 on a Intel Core 2 Duo E4600 2.4 GHz machine."));
+      $("body").append($("<p>").text("For comparison, the graph below shows how your system compares with some common browsers running Microsoft Windows Server 2003 SP2 on a Intel Core 2 Duo E4600 2.4 GHz machine. The machine was run through a Remote Desktop session."));
 
       $("body").append($("<div id='placeholder' style='width:800px;height:300px'></div>"));
       $.plot(
@@ -346,7 +346,7 @@ var jsDOM = {
 		      },
 	      
 	      {
-		data: [[data.length,score]],
+		data: [[data.length+0.1,score]],
 		      bars: {show:true},
 		      color: "#0f0"		      
 	      }
