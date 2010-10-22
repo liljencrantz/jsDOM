@@ -17,7 +17,7 @@ Many additional tests could be added. Patches are welcome.
 jsDOM relies heavily on the jQuery library for DOM manipulation. The
 reasoning behind this choice is that jQuery is a popular real world
 choice, and as such, the benchmark should better reflect real world
-performance. 
+performance.
 
 The jsDOM test performs a set of tasks that are all reasonable to
 expect an AJAX heavy site to perform during initial loading. These
@@ -28,6 +28,13 @@ inverted to produce the final benchmark score. In other words, a score
 of ten means that the DOM manipulation portion of page loading can be
 expected to take roughly one tenth of a second. This is the threshold
 chosen for what is percieved to be acceptable performance in this
-benchmark. 
+benchmark.
 
+jsDOM relies heavily on various open source libraries that are
+distributed together with this software. 
 
+* jQuery is Copyright (c) 2009 John Resig
+* flot is Copyright (c) 2007-2009 IOLA and Ole Laursen
+* ExplorerCanvas is Copyright (c) 2006 Google Inc.
+
+You guys rock.
