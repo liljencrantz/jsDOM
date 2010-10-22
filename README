@@ -1,9 +1,18 @@
-
 jsDOM is a benchmark suite for measuring performance of JavaScript DOM
 manipulation. That is, it does not measure the speed of the JavaScript
 interpreter itself, but rather the speed of the web browsers interface
 with JavaScript. In many modern web applications, this is the largest
 performance bottleneck.
+
+It is important to note the scope of jsDOM. What this benchmark tests
+is how fast the web browser is in creating new DOM objects in response
+to JavaScript requests. This benchmark does not measure how fast the
+browser then is at actually painting things on screen. Just because a
+script has created a new table does not imply that the browser chooses
+to display it on screen. There is, to the best of my knowledge, no
+sane way to check this.
+
+Many additional tests could be added. Patches are welcome.
 
 jsDOM relies heavily on the jQuery library for DOM manipulation. The
 reasoning behind this choice is that jQuery is a popular real world

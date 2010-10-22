@@ -27,7 +27,7 @@ var jsDOM = {
     /**
        The number of times to run each test.
      */
-  TRIAL_LAPS: 50,
+  TRIAL_LAPS: 10,
     /**
        The version of the benchmark. Whenever tests are added or updated, this version should be bumped.
      */
@@ -119,6 +119,30 @@ var jsDOM = {
 	      for(var j=0; j<5; j++){
 		  $("#el"+i+"_"+j).remove();
 	      }
+	  }
+      },
+      description: "This test measures the time it takes to remove a table, one table cell at a time."
+    },
+
+    elementSearch:
+    {
+      setup:function(){
+	    var classNames = ["foo","bar","baz"]
+	  var table = $("<table id='myTable'></table>");
+	  for(var i=0; i<50; i++){
+	      var row = $("<tr></tr>").addClass(classNames[i%4]);
+	      for(var j=0; j<5; j++){
+		  row.append($("<td></td>").text("Test").attr("id","el"+i+"_"+j).addClass("foo_"+i));
+	      }
+	      table.append(row);
+	  }
+	  $("body").append(table);
+	},
+      main:
+      function(){
+	  for(var i=0; i<50; i++){
+	      $("table tr.bar td:last").length;
+	      $("table tr:odd .foo_4").length;
 	  }
       },
       description: "This test measures the time it takes to remove a table, one table cell at a time."
@@ -381,6 +405,10 @@ var jsDOM = {
    */
   runTests: 
   function(){
+      if(window.location.hash != "")
+      {
+	  jsDOM.TRIAL_LAPS = parseInt(window.location.hash.substr(1));
+      }
       var results = {};
       $.each(
 	  jsDOM.tests, 
